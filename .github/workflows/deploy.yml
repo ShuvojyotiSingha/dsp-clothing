@@ -10,6 +10,7 @@ on: # This action will trigger when an issue is reopened or opened.
       - opened
 jobs: # The jobs that run in this workflow
   label_issues: # the first job is named as label_issues
+    if: github.event_name == 'issues' && github.event.action != 'closed'
     runs-on: ubuntu-latest # This job will run on the latest version of Ubuntu.
     permissions: # This job requires write access to issues in order to add labels and comment.
       issues: write
@@ -30,9 +31,8 @@ jobs: # The jobs that run in this workflow
           issue-number: ${{ github.event.issue.number }} # The issue number is obtained from the context of the event that triggered the action.
           body: | # The body of the comment is a message thanking the user for opening the issue.
            Thanks for opening this issue! We'll take a look as soon as possible.
-
-# Comment on when an issue is closed
-closed_issue:
+  # Comment on when an issue is closed
+  closed_issue:
     if: github.event_name == 'issues' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     permissions:
@@ -43,10 +43,8 @@ closed_issue:
           issue-number: ${{ github.event.issue.number }}
           body: |
             issue is nomore more.
-
-# Comment on when an users opens the first pull request 
-
-first_pr:
+  # Comment on when a user opens the first pull request 
+  first_pr:
     if: github.event_name == 'pull_request_target'
     runs-on: ubuntu-latest
     permissions:
