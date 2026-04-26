@@ -11,4 +11,4 @@ supply chain disruption fixes
 
 cls issue on shopping cart fixed
 
-ruletest for assignment 3
+ruletest
